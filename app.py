@@ -6,21 +6,21 @@ conn = session.connect_cloud("1025120117")
 
 client = scratch3.CloudRequests(conn)
 
-pong = 0
-
 @client.request
 def follower_number(username):
     user = scratch3.get_user(username)
     followers = user.follower_count()
     print(followers)
-    return followers
+    conn.set_var("follower_count", followers)
+    return 0
 
 @client.request
 def message_number(username):
     user = scratch3.get_user(username)
     messages = user.message_count()
-	print(messages)
-    return messages
+    print(messages)
+    conn.set_var("message_count", messages)
+    return 0
 
 @client.event
 def on_ready():
